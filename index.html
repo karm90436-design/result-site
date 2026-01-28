@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <title>University Result - ACU</title>
+  <meta charset="UTF-8" />
+  <title>نتيجة الجامعة - ACU</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -12,8 +12,8 @@
     }
     .box {
       background: #fff;
-      width: 420px;
-      margin: 40px auto;
+      width: 400px;
+      margin: 100px auto;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -33,9 +33,6 @@
       border: 1px solid #ccc;
       padding: 8px;
     }
-    th {
-      background: #eee;
-    }
     .pass {
       color: #0a7d2c;
       font-weight: bold;
@@ -44,85 +41,139 @@
       color: #b00020;
       font-weight: bold;
     }
+    th {
+      background: #eee;
+    }
   </style>
 </head>
 <body>
-
   <img src="acu.png" alt="ACU Logo" style="width:120px;margin-top:20px;" />
 
   <div class="box">
     <h2>الاستعلام عن نتيجة الجامعة</h2>
     <input type="text" id="studentId" placeholder="ادخل ID الطالب" />
     <button onclick="showResult()">عرض النتيجة</button>
+
     <div id="result"></div>
   </div>
 
-<script>
-const students = {
+  <script>
+    // بيانات تجريبية – تقدر تعدلها براحتك
+    const students = {
   "42410125": {
     name: "omar karam helmy dewan",
     rank: 14,
     total: 305,
-    gpa: 4.0,
+    gpa: 3.1,
     subjects: {
       "MT201 - Linear Algebra II": "A+",
       "MT203 - Probability & Statistics": "A+",
-      "CS201 - Data Structures": "A+",
-      "CN201 - Logic Design": "A+",
-      "MT202 - Calculus II": "A+"
+      "CS201 - Data Structures": "B",
+      "CN201 - Logic Design": "C",
+      "MT202 - Calculus II": "D"
     }
   },
-  "42410140": {
-    name: "Student A",
-    rank: 180,
+  "42410229": {
+    name: "ziad sabry agour",
+    rank: 87,
     total: 305,
-    gpa: 2.3,
+    gpa: 2.4,
     subjects: {
-      "MT201": "C",
-      "MT203": "F",
-      "CS201": "D",
-      "CN201": "F",
-      "MT202": "C"
+      "MT201 - Linear Algebra II": "C",
+      "MT203 - Probability & Statistics": "B",
+      "CS201 - Data Structures": "C",
+      "CN201 - Logic Design": "D",
+      "MT202 - Calculus II": "C"
+    }
+  },
+  "42410310": {
+    name: "menna ahmed elshamy",
+    rank: 55,
+    total: 305,
+    gpa: 2.8,
+    subjects: {
+      "MT201 - Linear Algebra II": "B",
+      "MT203 - Probability & Statistics": "B",
+      "CS201 - Data Structures": "C",
+      "CN201 - Logic Design": "C",
+      "MT202 - Calculus II": "B"
+    }
+  },
+  "42410477": {
+    name: "ahmed mohamed hassan",
+    rank: 190,
+    total: 305,
+    gpa: 1.9,
+    subjects: {
+      "MT201 - Linear Algebra II": "D",
+      "MT203 - Probability & Statistics": "F",
+      "CS201 - Data Structures": "C",
+      "CN201 - Logic Design": "D",
+      "MT202 - Calculus II": "C"
+    }
+  },
+  "42410999": {
+    name: "fatma said abdallah",
+    rank: 300,
+    total: 305,
+    gpa: 0.4,
+    subjects: {
+      "MT201 - Linear Algebra II": "F",
+      "MT203 - Probability & Statistics": "F",
+      "CS201 - Data Structures": "F",
+      "CN201 - Logic Design": "F",
+      "MT202 - Calculus II": "D"
     }
   }
 };
 
-function showResult() {
-  const id = document.getElementById("studentId").value;
-  const resultDiv = document.getElementById("result");
+    function showResult() {
+      const id = document.getElementById("studentId").value;
+      const resultDiv = document.getElementById("result");
 
-  if (!students[id]) {
-    resultDiv.innerHTML = `
-      <div style="border:1px solid #b00020;padding:15px;border-radius:8px;">
-        <h3 style="color:#b00020">خطأ في البيانات</h3>
-        <p>رقم الطالب غير موجود في قاعدة البيانات</p>
-      </div>`;
-    return;
-  }
+      if (!students[id]) {
+        resultDiv.innerHTML = `
+          <div style="border:1px solid #b00020;padding:15px;border-radius:8px;">
+            <h3 style="color:#b00020">خطأ في البيانات</h3>
+            <p>رقم الطالب غير موجود في قاعدة البيانات</p>
+          </div>`;
+        return;
+      }
 
-  const s = students[id];
-  let status = s.gpa >= 2 ? "ناجح" : "راسب";
-  let statusClass = s.gpa >= 2 ? "pass" : "fail";
+      const student = students[id];
+      let statusClass = student.gpa >= 2 ? 'pass' : 'fail';
+      let statusText = student.gpa >= 2 ? 'ناجح' : 'راسب';
 
-  let html = `
-    <h3>اسم الطالب: ${s.name}</h3>
-    <p>الترتيب على الدفعة: <strong>${s.rank}</strong> من ${s.total}</p>
-    <p>GPA: <strong>${s.gpa}</strong> / 4</p>
-    <p>الحالة: <span class="${statusClass}">${status}</span></p>
-    <table>
-      <tr><th>المادة</th><th>التقدير</th></tr>
-  `;
+      let html = `
+        <h3>اسم الطالب: ${student.name}</h3>
+        <p>الترتيب على الدفعة: <strong>${student.rank}</strong> من ${student.total}</p>
+        <p>GPA: <strong>${student.gpa}</strong> / 4</p>
+        <p>الحالة: <span class="${statusClass}">${statusText}</span></p>
+      `;
 
-  for (let sub in s.subjects) {
-    let g = s.subjects[sub];
-    let cls = g === "F" ? "fail" : "pass";
-    html += `<tr><td>${sub}</td><td class="${cls}">${g}</td></tr>`;
-  }
+      html += "<table><tr><th>المادة</th><th>التقدير</th></tr>";
 
-  html += "</table>";
-  resultDiv.innerHTML = html;
-}
-</script>
+      for (let sub in student.subjects) {
+        const grade = student.subjects[sub];
+        const cls = grade === 'F' ? 'fail' : 'pass';
+        html += `<tr><td>${sub}</td><td class="${cls}">${grade}</td></tr>`;
+      }
+
+      html += "</table>";
+      resultDiv.innerHTML = html;
+    }
+
+      let html = `<h3>اسم الطالب: ${students[id].name}</h3>`;
+      html += "<table><tr><th>المادة</th><th>الدرجة</th></tr>";
+
+      for (let sub in students[id].subjects) {
+        html += `<tr><td>${sub}</td><td>${students[id].subjects[sub]}</td></tr>`;
+      }
+
+      html += "</table>";
+      resultDiv.innerHTML = html;
+    }
+  </script>
 
 </body>
 </html>
